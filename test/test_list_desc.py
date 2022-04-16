@@ -26,7 +26,7 @@ class TestListDesc(unittest.TestCase):
         """
         todo_list = todo_processor.list_desc()
         self.assertTrue(todo_list)
-        self.assertEqual(len(todo_list), 3)
-        self.assertEqual(int(todo_list[0]["id"]), 2)
-        self.assertEqual(int(todo_list[1]["id"]), 1)
-        self.assertEqual(int(todo_list[2]["id"]), 0)
+        self.assertEqual(3, len(todo_list))
+        self.assertEqual(2, int(todo_list[0]["id"]))
+        self.assertEqual(1, int(todo_list[1]["id"]))
+        self.assertEqual(0, int(todo_list[2]["id"]))

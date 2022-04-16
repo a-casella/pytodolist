@@ -27,7 +27,7 @@ class TestDeleteTodo(unittest.TestCase):
             todo_processor.delete_todo(2)
             todo_list = json.load(file)
             self.assertTrue(todo_list)
-            self.assertEqual(len(todo_list), 2)
+            self.assertEqual(2, len(todo_list))
 
     def test_delete_all_todos(self):
         """
@@ -40,4 +40,4 @@ class TestDeleteTodo(unittest.TestCase):
             todo_processor.delete_todo(2)
             todo_list = json.load(file)
             self.assertFalse(todo_list)
-            self.assertEqual(len(todo_list), 0)
+            self.assertEqual(0, len(todo_list))

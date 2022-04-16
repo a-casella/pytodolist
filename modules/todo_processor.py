@@ -74,3 +74,17 @@ def edit_todo(id_todo, title):
             todo["title"] = title
             break
     file_handler.write_list(todo_list)
+
+
+def search_todo(title):
+    """
+    It searches for a selected to do item by using its title.
+    :param title: the title of the to do item
+    :return: none
+    """
+    result_list = []
+    todo_list = file_handler.read_list()
+    for todo in todo_list:
+        if title in todo["title"]:
+            result_list.append(todo)
+    return result_list

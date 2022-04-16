@@ -24,9 +24,9 @@ class TestAddTodo(unittest.TestCase):
         with open("data.json", "r") as file:
             todo_list = json.load(file)
             self.assertTrue(todo_list)
-            self.assertEqual(len(todo_list), 1)
-            self.assertEqual(int(todo_list[0]["id"]), 0)
-            self.assertEqual(todo_list[0]["title"], "test")
+            self.assertEqual(1, len(todo_list))
+            self.assertEqual(0, int(todo_list[0]["id"]))
+            self.assertEqual("test", todo_list[0]["title"])
 
     def test_add_todo_incremental_items(self):
         """
@@ -39,6 +39,6 @@ class TestAddTodo(unittest.TestCase):
         with open("data.json", "r") as file:
             todo_list = json.load(file)
             self.assertTrue(todo_list)
-            self.assertEqual(len(todo_list), 3)
-            self.assertEqual(int(todo_list[0]["id"]), 0)
-            self.assertEqual(todo_list[2]["title"], "test3")
+            self.assertEqual(3, len(todo_list))
+            self.assertEqual(0, int(todo_list[0]["id"]))
+            self.assertEqual("test3", todo_list[2]["title"])

@@ -20,7 +20,7 @@ match sys.argv[1]:
     case "h":
         print("help")
     case "s":
-        print("search")
+        print(todo_processor.search_todo(sys.argv[2]))
     case "e":
         todo_processor.edit_todo(int(sys.argv[2]), sys.argv[3])
     case _:
