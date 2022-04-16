@@ -49,7 +49,7 @@ def delete_todo(id_todo):
 
 def change_state(id_todo):
     """
-    It changes(toggles) the state of a selected to do item from False to True and vice versa using its id.
+    It changes(toggles) the state of a selected to do item from False to True and vice versa by using its id.
     :param id_todo: the id of the to do item
     :return: none
     """
@@ -57,5 +57,20 @@ def change_state(id_todo):
     for todo in todo_list:
         if todo["id"] == id_todo:
             todo["done"] = not todo["done"]
+            break
+    file_handler.write_list(todo_list)
+
+
+def edit_todo(id_todo, title):
+    """
+    It edits the title of a to do item by using its id and the new title.
+    :param id_todo: the id of the to do item
+    :param title: the new title
+    :return: none
+    """
+    todo_list = file_handler.read_list()
+    for todo in todo_list:
+        if todo["id"] == id_todo:
+            todo["title"] = title
             break
     file_handler.write_list(todo_list)

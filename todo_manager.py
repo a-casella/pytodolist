@@ -14,16 +14,14 @@ match sys.argv[1]:
     case "ls":
         print(todo_processor.list_desc())
     case "d":
-        id_todo = int(input("Insert the id of the to do item\n"))
-        todo_processor.delete_todo(id_todo)
+        todo_processor.delete_todo(int(sys.argv[2]))
     case "t":
-        id_todo = int(input("Insert the id of the to do item\n"))
-        todo_processor.change_state(id_todo)
+        todo_processor.change_state(int(sys.argv[2]))
     case "h":
         print("help")
     case "s":
         print("search")
     case "e":
-        print("edit")
+        todo_processor.edit_todo(int(sys.argv[2]), sys.argv[3])
     case _:
         print("default")
