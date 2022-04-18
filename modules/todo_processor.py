@@ -30,7 +30,7 @@ def list_desc():
     """
     todo_list = file_handler.read_list()
     # key gets an anonymous function to get the id of the item
-    todo_list.sort(key=lambda item: item.id, reverse=True)
+    todo_list.sort(key=lambda item: item.timestamp, reverse=True)
     return todo_list
 
 
