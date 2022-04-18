@@ -5,8 +5,13 @@ to use the provided functionalities.
 import sys
 from modules import todo_processor
 from modules import file_handler
+import i18n
 
 file_handler.init_data_file()
+i18n.load_path.append("translations")
+i18n.set("locale", "it")
+i18n.set("fallback", "en")
+i18n.set("file_format", "json")
 
 match sys.argv[1]:
     case "a":
@@ -18,7 +23,7 @@ match sys.argv[1]:
     case "t":
         todo_processor.change_state(int(sys.argv[2]))
     case "h":
-        print("help")
+        print(i18n.t("help.text"))
     case "s":
         print(todo_processor.search_todo(sys.argv[2]))
     case "e":

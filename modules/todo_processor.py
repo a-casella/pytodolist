@@ -4,7 +4,6 @@ This module contains functions used to carry out data processing required by the
 import time
 from modules import file_handler
 from classes.Todo import Todo
-from operator import itemgetter
 
 
 def add_todo(title):
@@ -29,7 +28,7 @@ def list_desc():
     :return: the list of to do items
     """
     todo_list = file_handler.read_list()
-    # key gets an anonymous function to get the id of the item
+    # key gets an anonymous function to get the timestamp of the item
     todo_list.sort(key=lambda item: item.timestamp, reverse=True)
     return todo_list
 

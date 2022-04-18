@@ -1,0 +1,5 @@
+{
+  "it": {
+    "text": "h      Mostra tutte le possibili azioni\nls      Visualizza i to do ordinati per data di inserimento decrescente\na(params: title)      Aggiunge un to do\ne(params: id,title)     Modifica un to do\nd(params: id)      Cancella un to do\nt(params: id)      Cambia lo stato del to do\ns(params: word)      Cerca to do che hanno nel loro titolo la parola inserita"
+  }
+}
