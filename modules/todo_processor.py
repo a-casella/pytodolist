@@ -17,9 +17,9 @@ def add_todo(title):
     id_todo = 0
     # if the list is not empty
     if todo_list:
-        id_todo = max(todo["id"] for todo in todo_list) + 1
+        id_todo = max(todo.id for todo in todo_list) + 1
     todo = Todo(id_todo, title, round(time.time()), False)
-    todo_list.append(todo.__dict__)
+    todo_list.append(todo)
     file_handler.write_list(todo_list)
 
 
@@ -29,8 +29,8 @@ def list_desc():
     :return: the list of to do items
     """
     todo_list = file_handler.read_list()
-    # key gets a function callable to be applied to the todos list
-    todo_list.sort(key=itemgetter("id"), reverse=True)
+    # key gets an anonymous function to get the id of the item
+    todo_list.sort(key=lambda item: item.id, reverse=True)
     return todo_list
 
 
@@ -43,7 +43,7 @@ def delete_todo(id_todo):
     todo_list = file_handler.read_list()
     # list comprehension where the result is a new list without the item with id equal to the one
     # inserted by the user
-    new_todo_list = [todo for todo in todo_list if not todo["id"] == id_todo]
+    new_todo_list = [todo for todo in todo_list if not todo.id == id_todo]
     file_handler.write_list(new_todo_list)
 
 
@@ -55,8 +55,8 @@ def change_state(id_todo):
     """
     todo_list = file_handler.read_list()
     for todo in todo_list:
-        if todo["id"] == id_todo:
-            todo["done"] = not todo["done"]
+        if todo.id == id_todo:
+            todo.done = not todo.done
             break
     file_handler.write_list(todo_list)
 
@@ -70,8 +70,8 @@ def edit_todo(id_todo, title):
     """
     todo_list = file_handler.read_list()
     for todo in todo_list:
-        if todo["id"] == id_todo:
-            todo["title"] = title
+        if todo.id == id_todo:
+            todo.title = title
             break
     file_handler.write_list(todo_list)
 
@@ -85,6 +85,6 @@ def search_todo(title):
     result_list = []
     todo_list = file_handler.read_list()
     for todo in todo_list:
-        if title in todo["title"]:
+        if title in todo.title:
             result_list.append(todo)
     return result_list

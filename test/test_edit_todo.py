@@ -1,5 +1,7 @@
 import unittest
 import json
+
+from classes.TodoSchema import TodoSchema
 from modules import todo_processor
 
 
@@ -24,17 +26,18 @@ class TestEditTodo(unittest.TestCase):
         :return: none
         """
         with open("data.json", "r") as file:
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertTrue(todo_list)
             self.assertEqual(3, len(todo_list))
-            self.assertEqual("test", todo_list[0]["title"])
+            self.assertEqual("test", todo_list[0].title)
             todo_processor.edit_todo(0, "edited_test")
-            self.assertEqual("abcd", todo_list[1]["title"])
+            self.assertEqual("abcd", todo_list[1].title)
             todo_processor.edit_todo(1, "edited_abcd")
-            self.assertEqual("title", todo_list[2]["title"])
+            self.assertEqual("title", todo_list[2].title)
             todo_processor.edit_todo(2, "edited_title")
             file.seek(0)
-            todo_list = json.load(file)
-            self.assertEqual("edited_test", todo_list[0]["title"])
-            self.assertEqual("edited_abcd", todo_list[1]["title"])
-            self.assertEqual("edited_title", todo_list[2]["title"])
+            todo_list = schema.load(json.load(file))
+            self.assertEqual("edited_test", todo_list[0].title)
+            self.assertEqual("edited_abcd", todo_list[1].title)
+            self.assertEqual("edited_title", todo_list[2].title)

@@ -1,5 +1,7 @@
 import unittest
 import json
+
+from classes.TodoSchema import TodoSchema
 from modules import todo_processor
 
 
@@ -22,11 +24,12 @@ class TestAddTodo(unittest.TestCase):
         """
         todo_processor.add_todo("test")
         with open("data.json", "r") as file:
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertTrue(todo_list)
             self.assertEqual(1, len(todo_list))
-            self.assertEqual(0, int(todo_list[0]["id"]))
-            self.assertEqual("test", todo_list[0]["title"])
+            self.assertEqual(0, int(todo_list[0].id))
+            self.assertEqual("test", todo_list[0].title)
 
     def test_add_todo_incremental_items(self):
         """
@@ -37,8 +40,9 @@ class TestAddTodo(unittest.TestCase):
         todo_processor.add_todo("test2")
         todo_processor.add_todo("test3")
         with open("data.json", "r") as file:
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertTrue(todo_list)
             self.assertEqual(3, len(todo_list))
-            self.assertEqual(0, int(todo_list[0]["id"]))
-            self.assertEqual("test3", todo_list[2]["title"])
+            self.assertEqual(0, int(todo_list[0].id))
+            self.assertEqual("test3", todo_list[2].title)

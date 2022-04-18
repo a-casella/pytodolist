@@ -1,5 +1,7 @@
 import unittest
 import json
+
+from classes.TodoSchema import TodoSchema
 from modules import todo_processor
 
 
@@ -24,17 +26,18 @@ class TestChangeState(unittest.TestCase):
         :return: none
         """
         with open("data.json", "r") as file:
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertTrue(todo_list)
             self.assertEqual(3, len(todo_list))
-            self.assertEqual(False, int(todo_list[0]["done"]))
+            self.assertEqual(False, int(todo_list[0].done))
             todo_processor.change_state(0)
-            self.assertEqual(True, int(todo_list[1]["done"]))
+            self.assertEqual(True, int(todo_list[1].done))
             todo_processor.change_state(1)
-            self.assertEqual(False, int(todo_list[2]["done"]))
+            self.assertEqual(False, int(todo_list[2].done))
             todo_processor.change_state(2)
             file.seek(0)
-            todo_list = json.load(file)
-            self.assertEqual(True, int(todo_list[0]["done"]))
-            self.assertEqual(False, int(todo_list[1]["done"]))
-            self.assertEqual(True, int(todo_list[2]["done"]))
+            todo_list = schema.load(json.load(file))
+            self.assertEqual(True, int(todo_list[0].done))
+            self.assertEqual(False, int(todo_list[1].done))
+            self.assertEqual(True, int(todo_list[2].done))

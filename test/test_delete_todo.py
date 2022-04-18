@@ -1,5 +1,7 @@
 import unittest
 import json
+
+from classes.TodoSchema import TodoSchema
 from modules import todo_processor
 
 
@@ -25,7 +27,8 @@ class TestDeleteTodo(unittest.TestCase):
         """
         with open("data.json", "r") as file:
             todo_processor.delete_todo(2)
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertTrue(todo_list)
             self.assertEqual(2, len(todo_list))
 
@@ -38,6 +41,7 @@ class TestDeleteTodo(unittest.TestCase):
             todo_processor.delete_todo(0)
             todo_processor.delete_todo(1)
             todo_processor.delete_todo(2)
-            todo_list = json.load(file)
+            schema = TodoSchema(many=True)
+            todo_list = schema.load(json.load(file))
             self.assertFalse(todo_list)
             self.assertEqual(0, len(todo_list))
