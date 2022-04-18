@@ -1,5 +1,0 @@
-{
-  "en": {
-    "text": "h      Show all possible actions\nls      Show all to do items ordered by date in descending order\na(params: title)      Add a new to do item\ne(params: id,title)     Edit a to do item\nd(params: id)      Delete a to do item\nt(params: id)      Toggle a to do item\ns(params: word)      Search for to do items with titles that contain the inserted word"
-  }
-}

@@ -3,19 +3,27 @@ This is the main code of the application. The user will insert from the command-
 to use the provided functionalities.
 """
 import sys
-from modules import todo_processor
-from modules import file_handler
 import i18n
+import configparser
+from modules import todo_processor
+from modules import input_validator
+from modules import file_handler
 
+config = configparser.ConfigParser()
+config.read("config.ini")
 file_handler.init_data_file()
-i18n.load_path.append("translations")
-i18n.set("locale", "it")
-i18n.set("fallback", "en")
-i18n.set("file_format", "json")
+i18n.load_path.append(config["DEFAULT"]["i18nPath"])
+i18n.set("locale", config["DEFAULT"]["i18nLocale"])
+i18n.set("fallback", config["DEFAULT"]["i18nFallback"])
+i18n.set("file_format", config["DEFAULT"]["i18nFileFormat"])
 
 match sys.argv[1]:
     case "a":
-        todo_processor.add_todo(sys.argv[2])
+        title = sys.argv[2]
+        if input_validator.validate_title_length(title):
+            todo_processor.add_todo(title)
+        else:
+            print(i18n.t("validator.wrongTitleLength"))
     case "ls":
         print(todo_processor.list_desc())
     case "d":
@@ -23,10 +31,14 @@ match sys.argv[1]:
     case "t":
         todo_processor.change_state(int(sys.argv[2]))
     case "h":
-        print(i18n.t("help.text"))
+        print(i18n.t("ui.help"))
     case "s":
         print(todo_processor.search_todo(sys.argv[2]))
     case "e":
-        todo_processor.edit_todo(int(sys.argv[2]), sys.argv[3])
+        title = sys.argv[3]
+        if input_validator.validate_title_length(title):
+            todo_processor.edit_todo(int(sys.argv[2]), title)
+        else:
+            print(i18n.t("validator.wrongTitleLength"))
     case _:
-        print("default")
+        print(i18n.t("ui.commandNotFound"))

@@ -2,6 +2,8 @@
 This module contains functions used to carry out data processing required by the functionalities of the application.
 """
 import time
+
+from classes.TodoSchema import TodoSchema
 from modules import file_handler
 from classes.Todo import Todo
 
@@ -30,7 +32,8 @@ def list_desc():
     todo_list = file_handler.read_list()
     # key gets an anonymous function to get the timestamp of the item
     todo_list.sort(key=lambda item: item.timestamp, reverse=True)
-    return todo_list
+    schema = TodoSchema(many=True)
+    return schema.dump(todo_list)
 
 
 def delete_todo(id_todo):
@@ -86,4 +89,5 @@ def search_todo(title):
     for todo in todo_list:
         if title in todo.title:
             result_list.append(todo)
-    return result_list
+    schema = TodoSchema(many=True)
+    return schema.dump(result_list)
